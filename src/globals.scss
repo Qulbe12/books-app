@@ -1,0 +1,86 @@
+mat-drawer-container {
+  width: 100vw;
+  height: 100vh;
+
+  mat-drawer {
+    width: 260px;
+  }
+
+  mat-selection-list {
+    padding-top: 0px !important;
+  }
+
+  mat-list-option {
+    height: 40px !important;
+  }
+
+  img {
+    height: 50px;
+    padding-bottom: 10px;
+  }
+
+  main {
+    padding: 18px;
+  }
+}
+
+mat-card {
+  box-shadow: none !important;
+  border: 1px solid rgba(0, 0, 0, 0.12) !important;
+}
+
+button[mat-icon-text] {
+  margin-right: 8px;
+  mat-icon {
+    margin-right: 8px;
+  }
+}
+
+mat-card[card-transparent] {
+  background-color: transparent !important;
+}
+
+mat-toolbar {
+  height: 57px !important;
+  background-color: white !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+
+  h1 {
+    font-size: 20px !important;
+  }
+}
+
+mat-flex {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+
+mat-flex[flex-colum] {
+  flex-direction: column;
+}
+
+mat-flex[justify-between] {
+  justify-content: space-between;
+}
+
+mat-flex[justify-center] {
+  justify-content: center;
+}
+
+mat-form-field {
+  width: 100% !important;
+}
+
+form {
+  min-width: 320px;
+}
+
+mat-label {
+  font-size: 16px !important;
+}
+
+h3 {
+  margin-bottom: 5px !important;
+}

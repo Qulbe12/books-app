@@ -1,0 +1,10 @@
+<div class="flex flex-col">
+  <div class="self-end mb-2">
+    <button mat-raised-button color="primary">Create Book</button>
+  </div>
+<mat-card *ngFor="let book of books">
+   <img [src]="book.thumbUrl" sizes="60px 60px">
+  <mat-card-title>{{book.name}}</mat-card-title>
+  <mat-card-content>{{book.price}} Rs/-</mat-card-content>
+</mat-card>
+</div>

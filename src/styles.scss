@@ -1,0 +1,72 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use "@angular/material" as mat;
+// Plus imports for other components in your app.
+
+@tailwind base;
+// @tailwind components;
+@tailwind utilities;
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+$jumptribe-typography: mat.define-typography-config(
+  $font-family: "Inter, sans-serif;",
+  $display-4:
+    mat.define-typography-level(112px, 112px, 300, $letter-spacing: -0.05em),
+  $display-3:
+    mat.define-typography-level(56px, 56px, 400, $letter-spacing: -0.02em),
+  $display-2:
+    mat.define-typography-level(45px, 48px, 400, $letter-spacing: -0.005em),
+  $display-1: mat.define-typography-level(34px, 40px, 400),
+  $headline: mat.define-typography-level(16px, 27px, 500),
+  $title: mat.define-typography-level(16px, 22px, 500),
+  $subheading-1: mat.define-typography-level(15px, 17px, 400),
+  $subheading-2: mat.define-typography-level(14px, 21px, 500),
+  $body-1: mat.define-typography-level(14px, 21px, 400),
+  $body-2: mat.define-typography-level(12px, 25px, 500),
+  $caption: mat.define-typography-level(14px, 21px, 400),
+  $button: mat.define-typography-level(14px, 21px, 400),
+  $input: mat.define-typography-level(inherit, 1.125, 400),
+);
+
+@include mat.core($jumptribe-typography);
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$jumptribe-ng-primary: mat.define-palette(mat.$indigo-palette);
+$jumptribe-ng-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$jumptribe-ng-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$jumptribe-ng-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $jumptribe-ng-primary,
+      accent: $jumptribe-ng-accent,
+      warn: $jumptribe-ng-warn,
+    ),
+  )
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($jumptribe-ng-theme);
+
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+  background-color: rgb(247, 247, 247);
+}
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+}
+
+@import "./globals.scss";

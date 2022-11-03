@@ -1,0 +1,67 @@
+<mat-drawer-container>
+  <mat-drawer mode="side" opened>
+    <mat-list>
+      <mat-list-item>
+        <mat-flex justify-center>
+          <img
+            src="https://www.pngpix.com/wp-content/uploads/2016/07/PNGPIX-COM-Southern-Company-Logo-PNG-Transparent.png"
+          />
+        </mat-flex>
+      </mat-list-item>
+    </mat-list>
+    <mat-divider></mat-divider>
+    <mat-selection-list dense [multiple]="false">
+      <mat-list-option
+        [selected]="title === link.title"
+        *ngFor="let link of links"
+        (click)="navigate(link)"
+      >
+        <mat-icon mat-list-icon>{{ link.icon }}</mat-icon>
+        <span mat-line>{{ link.title }}</span>
+      </mat-list-option>
+      <mat-divider></mat-divider>
+    </mat-selection-list>
+  </mat-drawer>
+
+  <mat-drawer-content>
+    <mat-toolbar>
+      <mat-flex justify-between>
+        <h1>{{ title }}</h1>
+        <section>
+          <mat-flex>
+            <ng-content select="[actions]"></ng-content>
+            <button matTooltip="Theme" mat-icon-button>
+              <mat-icon>wb_sunny</mat-icon>
+              <!-- brightness_2 -->
+            </button>
+
+            <button
+              matTooltip="User Account"
+              mat-icon-button
+              [matMenuTriggerFor]="menu"
+            >
+              <mat-icon>account_circle</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item>
+                <mat-icon>settings</mat-icon>
+                <span>Account Settings</span>
+              </button>
+              <button mat-menu-item>
+                <mat-icon>help_outline</mat-icon>
+                <span>Help Center</span>
+              </button>
+              <button mat-menu-item>
+                <mat-icon>power_settings_new</mat-icon>
+                <span>Logout</span>
+              </button>
+            </mat-menu>
+          </mat-flex>
+        </section>
+      </mat-flex>
+    </mat-toolbar>
+    <main>
+      <ng-content></ng-content>
+    </main>
+  </mat-drawer-content>
+</mat-drawer-container>
