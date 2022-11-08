@@ -12,10 +12,6 @@ const routes: Routes = [
       {
         path: 'books',
         component: BookListComponent
-      },
-      {
-        path: "create-book",
-        component: BookCreateComponent
       }
     ]
   }

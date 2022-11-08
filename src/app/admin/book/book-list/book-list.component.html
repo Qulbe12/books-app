@@ -1,10 +1,27 @@
 <div class="flex flex-col">
   <div class="self-end mb-2">
-    <button mat-raised-button color="primary">Create Book</button>
+    <button mat-raised-button color="primary" (click)="createBook()">Create Book</button>
   </div>
 <mat-card *ngFor="let book of books">
-   <img [src]="book.thumbUrl" sizes="60px 60px">
-  <mat-card-title>{{book.name}}</mat-card-title>
-  <mat-card-content>{{book.price}} Rs/-</mat-card-content>
+   <div class="flex justify-between">
+    <div> <img [src]="book.thumbUrl" sizes="40px">
+      <mat-card-title>{{book.name}}</mat-card-title>
+      <mat-card-content>{{book.price}} Rs/-</mat-card-content></div>
+     <div>
+       <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+         <mat-icon>more_vert</mat-icon>
+       </button>
+       <mat-menu #menu="matMenu">
+         <button mat-menu-item (click)="deleteBook(book)">
+           <mat-icon>delete</mat-icon>
+           <span>Delete</span>
+         </button>
+         <button mat-menu-item (click)="updateBook(book)">
+           <mat-icon>update</mat-icon>
+           <span>update</span>
+         </button>
+       </mat-menu>
+     </div>
+   </div>
 </mat-card>
 </div>

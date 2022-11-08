@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {IBookCreate, IBookDetailResponse, IBookPatch, IBookResponse, IBookUpdate} from "../dtos/dtos";
 import {Observable} from "rxjs";
 
-interface IService<ECreate, EUpdate, EPatch, EResponse, EDetailResponse> {
+interface IService<ECreate, EUpdate, EPatch, EResponse, EDetailResponse, EDelete> {
   find(): Observable<EResponse[]>
 
   foundAll: EventEmitter<EResponse[]>
@@ -20,20 +20,20 @@ interface IService<ECreate, EUpdate, EPatch, EResponse, EDetailResponse> {
 
   updated: EventEmitter<EResponse>
 
-  patch(id: string, model: EPatch): Observable<EResponse>
+  patch(id: number, model: EPatch): Observable<EResponse>
 
   patched: EventEmitter<EResponse>
 
-  delete(id: string): Observable<EResponse>
+  delete(id: number): Observable<any>
 
-  deleted: EventEmitter<EResponse>
+  deleted: EventEmitter<EDelete>
 
 }
 
 @Injectable({
   providedIn: 'root'
 })
-export class BookService implements IService<IBookCreate, IBookUpdate, IBookPatch, IBookResponse, IBookDetailResponse> {
+export class BookService implements IService<IBookCreate, IBookUpdate, IBookPatch, IBookResponse, IBookDetailResponse, number> {
   constructor(private http: HttpClient) {
   }
 
@@ -42,110 +42,118 @@ export class BookService implements IService<IBookCreate, IBookUpdate, IBookPatc
   created = new EventEmitter<IBookResponse>;
   updated = new EventEmitter<IBookResponse>;
   patched = new EventEmitter<IBookResponse>;
-  deleted = new EventEmitter<IBookResponse>;
+  deleted = new EventEmitter<number>;
 
   create(model: IBookCreate): Observable<IBookResponse> {
-    return new Observable<IBookResponse>(o => {
-      const book: IBookResponse = {
-        id: "70d4f147-6829-408f-9571-28cc408eebb4",
-        name: model.name,
-        price: model.price,
-        thumbUrl: model.thumbUrl,
-        created: new Date(),
-        updated: new Date()
-      }
-      o.next(book)
-    });
-    // return this.http.post<IBookResponse
-    //   >("http://localhost:3000/book" , model)
+    // return new Observable<IBookResponse>(o => {
+    //   const book: IBookResponse = {
+    //     id: "70d4f147-6829-408f-9571-28cc408eebb4",
+    //     name: model.name,
+    //     price: model.price,
+    //     thumbUrl: model.thumbUrl,
+    //     created: new Date(),
+    //     updated: new Date()
+    //   }
+    //   o.next(book)
+    // });
+    return this.http.post<IBookResponse>("http://localhost:3000/book" , model)
   }
 
-  delete(id: string): Observable<IBookResponse> {
-    return new Observable<IBookResponse>(o => {
-      const book: IBookResponse = {
-        id: "70d4f147-6829-408f-9571-28cc408eebb4",
-        name: "Thousand Thoughts",
-        price: 100,
-        thumbUrl: "https://picsum.photos/200/300",
-        created: new Date(),
-        updated: new Date()
-      }
-      o.next(book)
-    });
+  delete(id: number) {
+    // return new Observable<IBookResponse>(o => {
+    //   const book: IBookResponse = {
+    //     id: "70d4f147-6829-408f-9571-28cc408eebb4",
+    //     name: "Thousand Thoughts",
+    //     price: 100,
+    //     thumbUrl: "https://picsum.photos/200/300",
+    //     created: new Date(),
+    //     updated: new Date()
+    //   }
+    //   o.next(book)
+    // });
+    return this.http.delete<IBookResponse>(`http://localhost:3000/book/${id}`)
   }
 
   find(): Observable<IBookResponse[]> {
-    return new Observable<IBookResponse[]>(o => {
-      const books : IBookResponse[] = [
-        {
-          id: "70d4f147-6829-408f-9571-28cc408eebb4",
-          name: "Thousand Thoughts",
-          price: 100,
-          thumbUrl: "https://picsum.photos/200/300",
-          created: new Date(),
-          updated: new Date()
-        },
-        {
-          id: "70d4f147-6829-408f-9571-28cc408eebb4",
-          name: "Thousand Thoughts",
-          price: 100,
-          thumbUrl: "https://picsum.photos/200/300",
-          created: new Date(),
-          updated: new Date()
-        }
-      ]
-      o.next(books);
-    })
+    // return new Observable<IBookResponse[]>(o => {
+    //   const books : IBookResponse[] = [
+    //     {
+    //       id: "70d4f147-6829-408f-9571-28cc408eebb4",
+    //       name: "Thousand Thoughts",
+    //       price: 100,
+    //       thumbUrl: "https://picsum.photos/200/300",
+    //       created: new Date(),
+    //       updated: new Date()
+    //     },
+    //     {
+    //       id: "70d4f147-6829-408f-9571-28cc408eebb4",
+    //       name: "Thousand Thoughts",
+    //       price: 100,
+    //       thumbUrl: "https://picsum.photos/200/300",
+    //       created: new Date(),
+    //       updated: new Date()
+    //     }
+    //   ]
+    //   o.next(books);
+    // })
+
+    return this.http.get<IBookResponse[]>("http://localhost:3000/book")
   }
 
 
   findOne(id: string): Observable<IBookDetailResponse> {
-    return new Observable<IBookDetailResponse>(o => {
-      const book: IBookDetailResponse = {
-        id: "70d4f147-6829-408f-9571-28cc408eebb4",
-        name: "Thousand Thoughts",
-        price: 100,
-        thumbUrl: "https://picsum.photos/200/300",
-        author: {
-          id:"3d8d298a-e6a3-466e-8e07-52e64cba90cf",
-          name: "Qulbe Hussain",
-          created: new Date(),
-          updated: new Date()
-        },
-        created: new Date(),
-        updated: new Date()
-      }
-      o.next(book)
-    });
+    // return new Observable<IBookDetailResponse>(o => {
+    //   const book: IBookDetailResponse = {
+    //     id: 1,
+    //     name: "Thousand Thoughts",
+    //     price: 100,
+    //     thumbUrl: "https://picsum.photos/200/300",
+    //     author: {
+    //       id:"3d8d298a-e6a3-466e-8e07-52e64cba90cf",
+    //       name: "Qulbe Hussain",
+    //       created: new Date(),
+    //       updated: new Date()
+    //     },
+    //     created: new Date(),
+    //     updated: new Date()
+    //   }
+    //   o.next(book)
+    // });
+
+    return this.http.get<IBookDetailResponse>("http://localhost:3000/book")
 
   }
 
-  patch(id: string, model: IBookPatch): Observable<IBookResponse> {
-    return new Observable<IBookResponse>(o => {
-      const book: IBookResponse = {
-        id: "70d4f147-6829-408f-9571-28cc408eebb4",
-        name: "Thousand Thoughts",
-        price: 100,
-        thumbUrl: "https://picsum.photos/200/300",
-        created: new Date(),
-        updated: new Date()
-      }
-      o.next(book)
-    });
+  patch(id: number, model: IBookPatch): Observable<IBookResponse> {
+    // return new Observable<IBookResponse>(o => {
+    //   const book: IBookResponse = {
+    //     id: 1,
+    //     name: "Thousand Thoughts",
+    //     price: 100,
+    //     thumbUrl: "https://picsum.photos/200/300",
+    //     created: new Date(),
+    //     updated: new Date()
+    //   }
+    //   o.next(book)
+    // });
+
+    return this.http.patch<IBookResponse>(`http://localhost:3000/book/${id}`, model)
   }
 
   put(id: string, model: IBookUpdate): Observable<IBookResponse> {
-    return new Observable<IBookResponse>(o => {
-      const book: IBookResponse = {
-        id: "70d4f147-6829-408f-9571-28cc408eebb4",
-        name: "Thousand Thoughts",
-        price: 100,
-        thumbUrl: "https://picsum.photos/200/300",
-        created: new Date(),
-        updated: new Date()
-      }
-      o.next(book)
-    });
+    // return new Observable<IBookResponse>(o => {
+    //   const book: IBookResponse = {
+    //     id: 1,
+    //     name: "Thousand Thoughts",
+    //     price: 100,
+    //     thumbUrl: "https://picsum.photos/200/300",
+    //     created: new Date(),
+    //     updated: new Date()
+    //   }
+    //   o.next(book)
+    // });
+
+    return this.http.patch<IBookResponse>("http://localhost:3000/book", model)
   }
 
 
