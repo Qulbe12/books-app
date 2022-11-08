@@ -31,19 +31,21 @@ export interface IBookCreate{
 }
 
 export interface IBookUpdate{
+  id:number
   name:string
   thumbUrl:string
   price:number
 }
 
 export interface IBookPatch{
+  id: number
   name?:string
   thumbUrl?:string
   price?:number
 }
 
 export interface IBookResponse{
-id:string
+  id:number
   name:string
   thumbUrl:string
   price:number

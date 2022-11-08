@@ -26,10 +26,15 @@ export class BookCreateComponent implements OnInit {
   createBook(){
     this.bookService.create(this.data).subscribe({
       next: value => {
-        this.bookService.created.emit(value)
         console.log(value)
+        this.bookService.created.emit(value)
       },
       error: err => console.log(err)
+    }).add(()=>{this.dialog.closeAll()
     })
+  }
+
+  close(){
+    this.dialog.closeAll()
   }
 }
