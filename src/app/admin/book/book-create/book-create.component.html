@@ -3,19 +3,19 @@
 <form class="w-full h-full">
   <mat-form-field class="example-full-width" appearance="fill">
     <mat-label>Book Name</mat-label>
-    <input matInput placeholder="Name" [(ngModel)]="data.name" name="data.name">
+    <input matInput placeholder="Name" [(ngModel)]="model.name" name="data.name">
   </mat-form-field>
   <mat-form-field class="example-full-width" appearance="fill">
     <mat-label>Thumbnail</mat-label>
-    <input matInput placeholder="Name" [(ngModel)]="data.thumbUrl" name="data.thumbnail">
+    <input matInput placeholder="Name" [(ngModel)]="model.thumbUrl" name="data.thumbnail">
   </mat-form-field>
   <mat-form-field class="example-full-width" appearance="fill">
     <mat-label>Price</mat-label>
-    <input matInput placeholder="Name" [(ngModel)]="data.price" name="data.price">
+    <input matInput placeholder="Name" [(ngModel)]="model.price" name="data.price">
   </mat-form-field>
   <div class="gap-4">
-  <button mat-raised-button color="primary" class="m-2" (click)="createBook()">Create Book</button>
-  <button mat-raised-button class="m-2" (click)="close()">Cancel</button>
+  <button mat-raised-button color="primary" class="m-2" (click)="submit()">Create Book</button>
+  <button mat-raised-button class="m-2" mat-dialog-close >Cancel</button>
   </div>
 </form>
 </mat-card>

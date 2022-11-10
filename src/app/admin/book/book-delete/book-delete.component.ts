@@ -1,7 +1,8 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {BookService} from "../service/book.service";
 import {IBookResponse} from "../dtos/dtos";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-book-delete',
@@ -10,26 +11,31 @@ import {IBookResponse} from "../dtos/dtos";
 })
 export class BookDeleteComponent implements OnInit {
 
-  id?: number
-  book?: IBookResponse
-  res: boolean = false
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: { book: IBookResponse }, private service:BookService, private dialog: MatDialog) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: { bookId: string },
+              private service:BookService,
+              private myDialogRef: MatDialogRef<BookDeleteComponent>,
+              private snack : MatSnackBar) {
 
-  ngOnInit(): void {
-    this.id = this.data.book.id
-    this.book = this.data.book
   }
 
-  deleteBook(id: any){
-    this.service.delete(id).subscribe({
-      next: value => {
-        this.res = true
+  ngOnInit(): void {
+
+  }
+
+  deleteBook(){
+    this.snack.open("Deleting book ...");
+    this.service.delete(+this.data.bookId).subscribe({
+      next: data => {
+        this.snack.dismiss();
+        this.myDialogRef.close({
+          id: this.data.bookId,
+          name: '',
+          price: '',
+          thumbUrl: ''
+        })
       },
       error: err => console.log(err)
-    }).add(()=>{
-      this.service.deleted.emit(this.id)
-      this.dialog.closeAll()
     })
   }
 

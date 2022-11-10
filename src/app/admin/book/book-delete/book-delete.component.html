@@ -1,11 +1,8 @@
 <div class="h-1/2 w-1/2">
 <mat-card>
   <div class="flex justify-between w-full h-full">
-    <div> <img [src]="book?.thumbUrl" sizes="40px">
-      <mat-card-title>{{book?.name}}</mat-card-title>
-      <mat-card-content>{{book?.price}} Rs/-</mat-card-content>
-    </div>
+    Are you sure you want to delete book?
   </div>
 </mat-card>
-  <button mat-raised-button color="primary" (click)="deleteBook(book?.id)"> Delete</button>
+  <button mat-raised-button color="primary" (click)="deleteBook()"> Yes</button>
 </div>
