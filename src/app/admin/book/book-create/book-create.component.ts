@@ -11,30 +11,36 @@ import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 })
 export class BookCreateComponent implements OnInit {
 
-  data: IBookCreate = {
+  model: IBookCreate = {
     price: 0,
     name:"",
     thumbUrl: ""
-
   }
 
-  constructor(private bookService:BookService, private snack:MatSnackBar , private dialog: MatDialog) { }
+  constructor(private bookService:BookService, private snack:MatSnackBar , private myDialogRef: MatDialogRef<BookCreateComponent>) { }
 
   ngOnInit(): void {
   }
 
-  createBook(){
-    this.bookService.create(this.data).subscribe({
-      next: value => {
-        console.log(value)
-        this.bookService.created.emit(value)
+  submit(){
+    //open snack
+    this.snack.open("Creating book ...");
+    //call service
+    this.bookService.create(this.model).subscribe({
+      //success response
+      next: data => {
+        //do your job
+        this.myDialogRef.close(data);
+      //  close snack
+        this.snack.dismiss();
       },
-      error: err => console.log(err)
-    }).add(()=>{this.dialog.closeAll()
-    })
-  }
+      //error response
+      error: err => {
+        //do you job
 
-  close(){
-    this.dialog.closeAll()
+        //show error
+        this.snack.open("Something went wrong", "Error", {duration: 5000})
+      }
+    })
   }
 }

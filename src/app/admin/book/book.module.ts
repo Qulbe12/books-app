@@ -9,7 +9,7 @@ import { BookDetailComponent } from './book-detail/book-detail.component';
 import { BookUpdateComponent } from './book-update/book-update.component';
 import { BookPatchThumbnailComponent } from './book-patch-thumbnail/book-patch-thumbnail.component';
 import {MatExtensionModule} from "../../mat-extension/mat-extension.module";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -21,10 +21,11 @@ import {FormsModule} from "@angular/forms";
     BookUpdateComponent,
     BookPatchThumbnailComponent
   ],
-  imports: [
-    CommonModule,
-    MatExtensionModule,
-    FormsModule
-  ]
+    imports: [
+        CommonModule,
+        MatExtensionModule,
+        FormsModule,
+        ReactiveFormsModule
+    ]
 })
 export class BookModule { }

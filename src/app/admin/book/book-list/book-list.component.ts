@@ -19,39 +19,88 @@ export class BookListComponent implements OnInit {
   constructor(private service: BookService, private snack: MatSnackBar, private dialog: MatDialog) {
   }
 
-
-  ngOnInit(): void {
+  fetchBooks(){
+    //open snack
     this.snack.open("fetching books..." )
+    //call service
     this.service.find().subscribe({
-      next: value => this.books = value,
-      error: err => console.log(err)
-    }).add(()=> this.snack.dismiss())
+      //success response
+      next: data => {
+        // do your job
+        this.books = data;
+        //close snack
+        this.snack.dismiss()
+      },
+      //error response
+      error: err => {
+        //do you job
 
-    this.service.created.subscribe((value)=>{this.books.push(value)}).add(this.dialog.closeAll)
-    this.service.deleted.subscribe((value)=>{
-      const index = this.books.findIndex((item) => {
-        item.id === value
-      })
-     this.books.splice(index , 1)
-      console.log(this.books)
-    }
-    )
+        //open snack with error message
+        this.snack.open("Something went wrong", "Error", {duration: 5000})
+      }
+    });
+  }
+
+
+  showBook(book:IBookResponse){
+
   }
 
   createBook(){
-    this.dialog.open(BookCreateComponent)
+    const dialogRef = this.dialog.open(BookCreateComponent)
+    dialogRef.afterClosed().subscribe((book:IBookResponse) => {
+      if(book){
+      this.books.push(book)
+      }
+    })
   }
 
   deleteBook(book: IBookResponse){
-    this.dialog.open(BookDeleteComponent, {
-      data: {book : book}
+    const dialogRef = this.dialog.open(BookDeleteComponent, {
+      data: {bookId: book.id }
+    })
+
+    dialogRef.afterClosed().subscribe(book => {
+
+      console.log((book))
+
+       const index =  this.books.findIndex(x=> x.id === book.id)
+      console.log((index))
+      if(index > -1){
+
+
+        this.books.splice(index, 1)
+      }
     })
   }
 
   updateBook(book: IBookResponse){
-    this.dialog.open(BookPatchThumbnailComponent, {
-      data:{book: book}
+    const dialogRef = this.dialog.open(BookPatchThumbnailComponent, {
+      data:{book}
+    })
+    // //replace book with previus
+    dialogRef.afterClosed().subscribe((book:IBookResponse) => {
+      if(book){
+        this.books.map( x => {
+          if(x.id === book.id){
+            x.name = book.name
+            x.thumbUrl = book.thumbUrl
+            x.price = book.price
+          }
+        })
+      }
     })
   }
 
+
+
+  ngOnInit(): void {
+    this.fetchBooks();
+
+  //  all the signals from some components those reference we dont have
+    this.service.created.subscribe((book) => {
+      this.books.push(book)
+    })
+
+  }
 }
