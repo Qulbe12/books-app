@@ -2,6 +2,7 @@
   <div class="self-end mb-2">
     <button mat-raised-button color="primary" (click)="createBook()">Create Book</button>
   </div>
+  <div class="h-1/3 w-1/3">
 <mat-card *ngFor="let book of books">
    <div class="flex justify-between">
     <div> <img [src]="book.thumbUrl" sizes="40px">
@@ -24,4 +25,5 @@
      </div>
    </div>
 </mat-card>
+  </div>
 </div>
