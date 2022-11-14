@@ -53,17 +53,19 @@ export interface IBookResponse{
   updated:Date
 }
 
+export interface IAuthor {
+  id:string
+  name:string
+  created:Date
+  updated:Date
+}
+
 export interface IBookDetailResponse{
   id:string
   name:string
   thumbUrl:string
   price:number
-  author: {
-    id:string
-    name:string
-    created:Date
-    updated:Date
-  }
+  author:IAuthor
   created:Date
   updated:Date
 }
