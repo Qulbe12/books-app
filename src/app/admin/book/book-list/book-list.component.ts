@@ -100,6 +100,7 @@ export class BookListComponent implements OnInit {
   //  all the signals from some components those reference we dont have
     this.service.created.subscribe((book) => {
       this.books.push(book)
+      document.write(book.name)
     })
 
   }
