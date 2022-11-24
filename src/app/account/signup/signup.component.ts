@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, Validators} from "@angular/forms";
-import {login, signup} from "../dtos/dtos";
 import {AccountService} from "../service/account.service";
+import {UserCreateDtos} from "../dtos";
 
 @Component({
   selector: 'app-signup',
@@ -20,9 +20,10 @@ export class SignupComponent implements OnInit {
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', [Validators.required]);
 
-  model: login = {
-    email: JSON.stringify(this.email.value),
-    password: JSON.stringify(this.password.value)
+  model: UserCreateDtos = {
+    name: "",
+    email: "",
+    password: ""
 }
 
   getErrorMessageEmail() {
@@ -37,7 +38,7 @@ export class SignupComponent implements OnInit {
   }
 
   submit(){
-    this.accountService.login(this.model).subscribe({
+    this.accountService.signup(this.model).subscribe({
       next: data => console.log(data),
       error: err => console.log(err)
     })
