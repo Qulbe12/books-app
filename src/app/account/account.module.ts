@@ -6,10 +6,10 @@ import { LoginComponent } from './login/login.component';
 import { AccountComponent } from './account.component';
 import { MatExtensionModule } from '../mat-extension/mat-extension.module';
 import { SignupComponent } from './signup/signup.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [LoginComponent, AccountComponent, SignupComponent],
-  imports: [CommonModule, MatExtensionModule, AccountRoutingModule, ReactiveFormsModule],
+  imports: [CommonModule, MatExtensionModule, AccountRoutingModule, ReactiveFormsModule, FormsModule],
 })
 export class AccountModule {}

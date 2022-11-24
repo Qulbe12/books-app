@@ -3,14 +3,20 @@
   <h2>Sign Up</h2>
   <div class="example-container">
     <mat-form-field appearance="fill">
+      <mat-label>Enter your name</mat-label>
+      <input matInput placeholder="pat@example.com" [(ngModel)]="model.name" name="model.name">
+    </mat-form-field>
+  </div>
+  <div class="example-container">
+    <mat-form-field appearance="fill">
       <mat-label>Enter your email</mat-label>
-      <input matInput placeholder="pat@example.com" [formControl]="email" required>
+      <input matInput placeholder="pat@example.com" [formControl]="email" [(ngModel)]="model.email" required>
       <mat-error *ngIf="email.invalid">{{getErrorMessageEmail()}}</mat-error>
     </mat-form-field>
   </div>
   <mat-form-field appearance="fill">
     <mat-label>Enter your password</mat-label>
-    <input matInput [type]="hide ? 'password' : 'text'" [formControl]="password" required>
+    <input matInput [type]="hide ? 'password' : 'text'" [formControl]="password" [(ngModel)]="model.password" required>
     <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
       <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
     </button>

@@ -3,16 +3,17 @@ export interface login{
   password: string
 }
 
-export interface signup{
+export interface UserCreateDtos {
+  name: string
   email:string
   password: string
 }
 
-export interface signupResponse{
+export interface UserCreateResponseDtos{
   id: string
+  name: string
   email: string
   password: string
-  token: string
 }
 
 export interface loginResponse {
