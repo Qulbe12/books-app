@@ -22,6 +22,25 @@
     </button>
     <mat-error *ngIf="password.invalid">{{getErrorMessagePassword()}}</mat-error>
   </mat-form-field>
-  <button mat-raised-button color="primary" type="button" (click)="submit()">Sign Up</button>
+  <div class="flex gap-2">
+    <button mat-raised-button color="primary" type="button" (click)="submit()">Sign Up</button>
+    <button mat-raised-button color="warn" type="button" (click)="delete(2)">Delete</button>
+  </div>
 </form>
 </mat-card>
+
+<mat-card class="w-96" *ngFor="let user of users">
+
+    <h2>Users</h2>
+    <div class="example-container">
+      <h4>{{user.name}}</h4>
+    </div>
+    <div class="example-container">
+      <h6>{{user.email}}</h6>
+    </div>
+    <div class="flex gap-2">
+      <button mat-raised-button color="warn" type="button" (click)="delete(user.id)">Delete</button>
+    </div>
+
+</mat-card>
+

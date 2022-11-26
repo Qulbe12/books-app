@@ -18,7 +18,11 @@ export class AccountService {
     return this.http.post<UserCreateResponseDtos>('http://localhost:3000/users/create-user', model)
   }
 
-  getUsers(){
-    return this.http.get("http://localhost:3000/users")
+  delete(id: number){
+    return this.http.delete(`http://localhost:3000/users/delete/${id}`)
+  }
+
+  getAllUsers(): Observable<UserCreateResponseDtos[]>{
+    return this.http.get<UserCreateResponseDtos[]>("http://localhost:3000/users")
   }
 }

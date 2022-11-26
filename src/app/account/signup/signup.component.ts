@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, Validators} from "@angular/forms";
 import {AccountService} from "../service/account.service";
-import {UserCreateDtos} from "../dtos";
+import {UserCreateDtos, UserCreateResponseDtos} from "../dtos";
 
 @Component({
   selector: 'app-signup',
@@ -10,9 +10,18 @@ import {UserCreateDtos} from "../dtos";
 })
 export class SignupComponent implements OnInit {
 
+  users: UserCreateResponseDtos[] = []
+
   constructor(private accountService: AccountService) { }
 
   ngOnInit(): void {
+    this.accountService.getAllUsers().subscribe({
+      next: data => {
+        console.log(data)
+        this.users = data
+      },
+      error: err => console.log(err)
+    })
   }
 
   hide = true
@@ -39,6 +48,13 @@ export class SignupComponent implements OnInit {
 
   submit(){
     this.accountService.signup(this.model).subscribe({
+      next: data => console.log(data),
+      error: err => console.log(err)
+    })
+  }
+
+  delete(id: number){
+    this.accountService.delete(id).subscribe({
       next: data => console.log(data),
       error: err => console.log(err)
     })
