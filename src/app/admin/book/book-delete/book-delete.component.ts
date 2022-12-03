@@ -11,14 +11,13 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 })
 export class BookDeleteComponent implements OnInit {
 
-
   constructor(@Inject(MAT_DIALOG_DATA) public data: { bookId: string },
               private service:BookService,
               private myDialogRef: MatDialogRef<BookDeleteComponent>,
-              private snack : MatSnackBar) {
-  }
+              private snack : MatSnackBar) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {  }
+
 
   deleteBook(){
     this.snack.open("Deleting book ...");
