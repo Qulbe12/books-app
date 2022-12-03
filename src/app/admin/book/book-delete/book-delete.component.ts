@@ -18,6 +18,7 @@ export class BookDeleteComponent implements OnInit {
 
   ngOnInit(): void {  }
 
+
   deleteBook(){
     this.snack.open("Deleting book ...");
     this.service.delete(+this.data.bookId).subscribe({
