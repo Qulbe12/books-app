@@ -21,7 +21,9 @@ export class BookDeleteComponent implements OnInit {
   deleteBook(){
     this.snack.open("Deleting book ...");
     this.service.delete(+this.data.bookId).subscribe({
+
       next: data => {
+
         this.snack.dismiss();
         this.myDialogRef.close({
           id: this.data.bookId,
