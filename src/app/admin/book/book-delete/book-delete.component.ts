@@ -15,10 +15,7 @@ export class BookDeleteComponent implements OnInit {
               private service:BookService,
               private myDialogRef: MatDialogRef<BookDeleteComponent>,
               private snack : MatSnackBar) {}
-
   ngOnInit(): void {  }
-
-
   deleteBook(){
     this.snack.open("Deleting book ...");
     this.service.delete(+this.data.bookId).subscribe({
